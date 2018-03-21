@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Caillou</string>
+
+    <!-- Main Page -->
+    <string name="login_name">Login</string>
+    <string name="placeholder_username">Name</string>
+    <string name="placeholder_password">Password</string>
+    <string name="newToAppMessage">New? Signup Rockstar!!!</string>
+
+    <!-- Sign up Page -->
+    <string name="signUp_FirstName">First Name</string>
+    <string name="signUp_LastName">Last Name</string>
+    <string name="signUp_Email">Email</string>
+    <string name="signUp_Password">Password</string>
+    <string name="signUp_Button">Sign Up</string>
+
+</resources>
