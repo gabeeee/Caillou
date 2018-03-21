@@ -3,7 +3,6 @@ package com.example.gabriel.caillou;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -23,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        signUp = (TextView) findViewById(R.id.textView);
+        signUp = (TextView) findViewById(R.id.signUpLabel);
 
         signUp.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view)
@@ -39,8 +38,8 @@ public class MainActivity extends AppCompatActivity {
         String username, password;
         JSONObject payload = new JSONObject(); //JSON Exception thrown must be applied after.
 
-        usernameTextBox = (EditText) findViewById(R.id.editText);
-        passwordTextBox = (EditText) findViewById(R.id.editText2);
+        usernameTextBox = (EditText) findViewById(R.id.loginBox);
+        passwordTextBox = (EditText) findViewById(R.id.loginPasswordBox);
 
         username = usernameTextBox.getText().toString();
         password = passwordTextBox.getText().toString();

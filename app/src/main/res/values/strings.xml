@@ -3,6 +3,7 @@
 
     <!-- Main Page -->
     <string name="login_name">Login</string>
+    <string name="imageViewPlaceholderLogo">Placeholder Logo</string>
     <string name="placeholder_username">Name</string>
     <string name="placeholder_password">Password</string>
     <string name="newToAppMessage">New? Signup Rockstar!!!</string>
