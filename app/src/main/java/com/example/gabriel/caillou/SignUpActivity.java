@@ -33,6 +33,9 @@ public class SignUpActivity extends AppCompatActivity {
                 password = passwordTextBox.getText().toString();
                 email = emailTextBox.getText().toString();
 
+                //TODO: check firstname, lastname, password, and email validity
+
+
                 System.out.println(firstName + " " + lastName + " " + password + " " + email);
                 //Toast.makeText(getApplicationContext(), (firstName + " " + lastName + " " + password + " " + email) , Toast.LENGTH_SHORT).show();
 
