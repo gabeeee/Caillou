@@ -14,5 +14,9 @@
     <string name="signUp_Email">Email</string>
     <string name="signUp_Password">Password</string>
     <string name="signUp_Button">Sign Up</string>
+    <string name="title_activity_dashboard_home">DashboardHome</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
 
 </resources>

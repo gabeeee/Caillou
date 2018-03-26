@@ -87,6 +87,9 @@ public class MainActivity extends AppCompatActivity {
 
         sendJsonRequest();
 
+        // TODO: Open dashboard activity send JSONRequest should probably return a boolean value.
+        // To make sure that user doesn't reach next activity if the login page doesn't let them.
+
     }
 
     public void sendJsonRequest()
@@ -103,6 +106,7 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Hello " + firstName + lastName, Toast.LENGTH_SHORT).show();
 
                     System.out.println(firstName + "------" + lastName);
+
 
                 } catch (JSONException e) {
                     e.printStackTrace();
