@@ -47,6 +47,11 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view)
             {
                 System.out.println("SignUp Activity Started");
+
+                // TODO: This could be redundant...
+                passwordTextBox = findViewById(R.id.loginPasswordBox);
+                passwordTextBox.setText("");
+
                 Intent intent = new Intent(MainActivity.this, SignUpActivity.class);
                 startActivity(intent);
             }
@@ -66,12 +71,17 @@ public class MainActivity extends AppCompatActivity {
         payload.put("username", username);
         payload.put("password", password);
 
+        // Comment out payload
+        // sendJsonRequest function should have covered any exceptions. Might want to return a
+        // boolean data type.
+
+        /*
         if (payload != null) // This function should check the validity of the object and check if
                              // payload was sent and secured.
         {
             // Set up a dummy toast message
             Toast.makeText(getApplicationContext(), "Hello " + username, Toast.LENGTH_SHORT).show();
-        }
+        } */
 
         rq = Volley.newRequestQueue(this);
 
@@ -89,11 +99,14 @@ public class MainActivity extends AppCompatActivity {
                     firstName = response.getString("firstName");
                     lastName = response.getString("lastName");
 
+                    // Toast test
+                    Toast.makeText(getApplicationContext(), "Hello " + firstName + lastName, Toast.LENGTH_SHORT).show();
+
                     System.out.println(firstName + "------" + lastName);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    System.out.println("Error: Couldn't get anything...");
+                    System.out.println("Error: Didn't recieve JSON payload.");
                 }
 
 
@@ -101,7 +114,9 @@ public class MainActivity extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                System.out.println("ERROR: NO CNXINOT");
+                // TODO: Look into making this into a popup window.
+                System.out.println("Error: Couldn't communicate to the server");
+                Toast.makeText(getApplicationContext(), "Error: Couldn't communicate to the server", Toast.LENGTH_SHORT).show();
             }
         });
 
