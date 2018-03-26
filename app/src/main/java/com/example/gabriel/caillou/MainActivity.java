@@ -89,7 +89,8 @@ public class MainActivity extends AppCompatActivity {
 
         // TODO: Open dashboard activity send JSONRequest should probably return a boolean value.
         // To make sure that user doesn't reach next activity if the login page doesn't let them.
-
+        Intent intent = new Intent(MainActivity.this, DashboardHome.class);
+        startActivity(intent);
     }
 
     public void sendJsonRequest()
