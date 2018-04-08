@@ -21,7 +21,11 @@
         <activity android:name=".SignUpActivity" />
         <activity
             android:name=".DashboardHome"
-            android:label="@string/title_activity_dashboard_home"></activity>
+            android:label="@string/title_activity_dashboard_home" />
+        <activity
+            android:name=".DashboardHomev2"
+            android:label="@string/title_activity_dashboard_homev2"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

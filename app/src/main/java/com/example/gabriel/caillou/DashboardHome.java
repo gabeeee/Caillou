@@ -45,6 +45,12 @@ public class DashboardHome extends AppCompatActivity
         // When application is new loaded (tabs haven't been click) then load the first fragment
         loadFragment(new HomeFragment());
 
+        // Set toolbar as action bar
+        {
+            android.support.v7.widget.Toolbar toolbar = findViewById(R.id.toolbar);
+
+            setSupportActionBar(toolbar);
+        }
 
     }
 

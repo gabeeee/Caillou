@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     TextView signUp;
     EditText usernameTextBox;
     EditText passwordTextBox;
+    User user;
 
     RequestQueue rq;
     String url = "http://192.168.0.17/login.php";
@@ -48,10 +49,11 @@ public class MainActivity extends AppCompatActivity {
             {
                 System.out.println("SignUp Activity Started");
 
-                // TODO: This could be redundant...
                 passwordTextBox = findViewById(R.id.loginPasswordBox);
                 passwordTextBox.setText("");
 
+                // TODO: Create class for User data (implement parcable to pass intent along with
+                // class object)
                 Intent intent = new Intent(MainActivity.this, SignUpActivity.class);
                 startActivity(intent);
             }
@@ -87,9 +89,15 @@ public class MainActivity extends AppCompatActivity {
 
         sendJsonRequest();
 
+        user = new User();
+
+        user.setFirstName("Judy");
+        user.setLastName("Lara");
+
         // TODO: Open dashboard activity send JSONRequest should probably return a boolean value.
         // To make sure that user doesn't reach next activity if the login page doesn't let them.
-        Intent intent = new Intent(MainActivity.this, DashboardHome.class);
+        Intent intent = new Intent(MainActivity.this, DashboardHomev2.class);
+        intent.putExtra("Example User", user);
         startActivity(intent);
     }
 
@@ -102,6 +110,9 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     firstName = response.getString("firstName");
                     lastName = response.getString("lastName");
+
+                    //user.setFirstName(firstName);
+                    //user.setLastName(lastName);
 
                     // Toast test
                     Toast.makeText(getApplicationContext(), "Hello " + firstName + lastName, Toast.LENGTH_SHORT).show();
