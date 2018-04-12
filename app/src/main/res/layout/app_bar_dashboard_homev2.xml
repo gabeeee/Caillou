@@ -30,7 +30,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/colorAccent"
+        android:background="#0F3854"
+        app:itemTextColor="#ffffff"
+        app:itemIconTint="#ffffff"
         app:layout_anchor="@+id/include"
         app:layout_anchorGravity="left|bottom"
         app:menu="@menu/navigation" />
