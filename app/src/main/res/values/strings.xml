@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Caillou</string>
+    <string name="app_name">ApiCal</string>
 
     <!-- Main Page -->
     <string name="login_name">Login</string>

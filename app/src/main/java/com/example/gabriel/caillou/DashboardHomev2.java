@@ -72,14 +72,17 @@ public class DashboardHomev2 extends AppCompatActivity
                         {
                             case R.id.navigation_home:
                                 fragment = new HomeFragment();
+                                getSupportActionBar().setTitle("ApiCal");
                                 break;
 
                             case R.id.navigation_dashboard:
                                 fragment = new DashboardFragment();
+                                getSupportActionBar().setTitle("ApiCal: Calendar");
                                 break;
 
                             case R.id.navigation_notifications:
                                 fragment = new NotificationsFragment();
+                                getSupportActionBar().setTitle("ApiCal: Notifications");
                                 break;
                         }
 
@@ -156,17 +159,27 @@ public class DashboardHomev2 extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item)
     {
+        Fragment fragment;
+
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
         if (id == R.id.nav_profile)
         {
             // Handle the camera action
+            getSupportActionBar().setTitle("ApiCal: User");
         } else if (id == R.id.nav_teams)
         {
+            // Start TeamFragment
+            fragment = new TeamPageFragment();
+            loadFragment(fragment);
+
+            getSupportActionBar().setTitle("ApiCal: Teams");
+
 
         } else if (id == R.id.nav_logout)
         {
+            // TODO: Clear user preferences and settings.
             finish();
         }
 

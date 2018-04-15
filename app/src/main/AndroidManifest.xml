@@ -24,8 +24,8 @@
             android:label="@string/title_activity_dashboard_home" />
         <activity
             android:name=".DashboardHomev2"
-            android:label="@string/title_activity_dashboard_homev2"
-            android:theme="@style/AppTheme"></activity>
+            android:label="ApiCal"
+            android:theme="@style/AppTheme" />
     </application>
 
 </manifest>
