@@ -15,12 +15,14 @@ public class User implements Parcelable
     {
 
     }
-    public User(String firstName, String lastName, String userName, String email)
+
+    public User(String firstName, String lastName, String userName, String email, Team team)
     {
         this.firstName = firstName;
         this.lastName = lastName;
         this.userName = userName;
         this.email = email;
+        this.team = team;
     }
 
     protected User(Parcel in) {

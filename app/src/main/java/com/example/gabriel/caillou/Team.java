@@ -2,6 +2,7 @@ package com.example.gabriel.caillou;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Team
 {
@@ -9,18 +10,38 @@ public class Team
     // (Do we need to serialize this object?)
 
     private String teamName;
-    private ArrayList<User> members;
+    private List<User> members;
     private String description;
+    private List<String> stringMembers;
 
-    public Team (String teamName, User[] usersList)
+
+    public Team(String teamName, String description, List<User> members)
     {
         this.teamName = teamName;
+        this.members = members;
+        this.description = description;
 
-        members = new ArrayList<>();
-        for (User users : usersList)
-        {
-            members.add(users);
-        }
+        stringMembers = new ArrayList<>();
+
+        for(User u : members)
+            stringMembers.add(u.getFirstName());
+    }
+
+    public List<String> getStringMembers()
+    {
+        return stringMembers;
+    }
+
+    public void setStringMembers(List<String> stringMembers)
+    {
+        this.stringMembers = stringMembers;
+    }
+
+    public Team(String teamName, List<String> stringMembers, String description)
+    {
+        this.teamName = teamName;
+        this.description = description;
+        this.stringMembers = stringMembers;
     }
 
     public String getTeamName()
@@ -28,11 +49,28 @@ public class Team
         return teamName;
     }
 
-    public String getDescription() {
+    public void setTeamName(String teamName)
+    {
+        this.teamName = teamName;
+    }
+
+    public List<User> getMembers()
+    {
+        return members;
+    }
+
+    public void setMembers(List<User> members)
+    {
+        this.members = members;
+    }
+
+    public String getDescription()
+    {
         return description;
     }
 
-    public ArrayList<User> getMembers() {
-        return members;
+    public void setDescription(String description)
+    {
+        this.description = description;
     }
 }
