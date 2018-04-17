@@ -1,9 +1,12 @@
 package com.example.gabriel.caillou;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,6 +18,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ExpandableListView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,6 +32,7 @@ public class TeamPageFragment extends Fragment
     //private List<String> listDataHeader;
     private User user;
     private HashMap<String, List<String>> listHash;
+    private FloatingActionButton fab;
 
     @Nullable
     @Override
@@ -40,52 +45,40 @@ public class TeamPageFragment extends Fragment
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // Test settings
-        final String[] teamNames = new String[]{"Red Team", "Blue Team", "Green Team", "Purple Team", "Orange Team", "Blue Team", "Green Team", "Purple Team", "Orange Team", "Blue Team", "Green Team", "Purple Team", "Orange Team", "Blue Team", "Green Team", "Purple Team", "Orange Team", "Blue Team", "Green Team", "Purple Team", "Orange Team", "Blue Team", "Green Team", "Purple Team", "Orange Team", "Blue Team", "Green Team", "Purple Team", "Orange Team", "Blue Team", "Green Team", "Purple Team", "Orange Team", "Blue Team", "Green Team", "Purple Team", "Orange Team", "Blue Team", "Green Team", "Purple Team", "Orange Team", "Blue Team", "Green Team", "Purple Team", "Orange Team", "Blue Team", "Green Team", "Purple Team", "Orange Team", "Blue Team", "Green Team", "Purple Team", "Orange Team", "Blue Team", "Green Team", "Purple Team", "Orange Team", "Blue Team", "Green Team", "Purple Team", "Orange Team", "Blue Team", "Green Team", "Purple Team", "Orange Team", "Blue Team", "Green Team", "Purple Team", "Orange Team", "Blue Team", "Green Team", "Purple Team", "Orange Team", "Blue Team", "Green Team", "Purple Team", "Orange Team", "Blue Team", "Green Team", "Purple Team", "Orange Team", "Blue Team", "Green Team", "Purple Team", "Orange Team", "Blue Team", "Green Team", "Purple Team", "Orange Team", "Blue Team", "Green Team", "Purple Team", "Orange Team", "Blue Team", "Green Team", "Purple Team", "Orange Team", "Blue Team", "Green Team", "Purple Team", "Orange Team", "Blue Team", "Green Team", "Purple Team", "Orange Team", "Blue Team", "Green Team", "Purple Team", "Orange Team", "Blue Team", "Green Team", "Purple Team", "Orange Team", "Blue Team", "Green Team", "Purple Team", "Orange Team", "Blue Team", "Green Team", "Purple Team", "Orange Team", "Blue Team", "Green Team", "Purple Team", "Orange Team", "Blue Team", "Green Team", "Purple Team", "Orange Team", "Blue Team", "Green Team", "Purple Team", "Orange Team"};
-        //final String[] teamNames = new String[0];
-        // end test setttings
+        final List<String> teamNames = new ArrayList<>();
 
         listView = view.findViewById(R.id.teamList);
 
-        /*
-        if (user == null) // size of list as well
-        {
-            listView.setVisibility(View.GONE);
-        } */
-
         final TextView text = view.findViewById(R.id.lblListHeader);
 
-        ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(getContext(), R.layout.list_group, R.id.lblListHeader, teamNames);
+        final ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(getContext(), R.layout.list_group, R.id.lblListHeader, teamNames);
 
         listView.setAdapter(listAdapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                switch(position)
+                if (position > 0 && teamNames.size() >= teamNames.size())
                 {
-                    case 0:
-                        System.out.println(teamNames[0]);
-                        Intent intent = new Intent(getActivity(), SignUpActivity.class);
-                        startActivity(intent);
-                        //Color.RED
-
-                        break;
-                    case 1:
-                        System.out.println(teamNames[1]);
-                        break;
-                    case 2:
-                        System.out.println(teamNames[2]);
-                        break;
-                    case 3:
-                        System.out.println(teamNames[3]);
-                        break;
-                    default:
-                        System.err.println("OUT");
-                        break;
+                    System.out.println("teamNames: " + teamNames.get(position));
                 }
             }
         });
 
+        fab = view.findViewById(R.id.teamFloatingActionButton);
+
+        // Create Team Page
+        fab.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+
+                Intent intent = new Intent(getContext(), TeamCreation.class);
+                startActivity(intent);
+                Toast.makeText(getContext( ), "Team Created", Toast.LENGTH_SHORT).show();
+
+            }
+        });
     }
 }

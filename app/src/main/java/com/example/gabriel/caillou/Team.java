@@ -18,6 +18,17 @@ public class Team
     //private Calendar;
 
 
+    public Team(String teamName)
+    {
+        this.teamName = teamName;
+    }
+
+    public Team(String teamName, String description)
+    {
+        this.teamName = teamName;
+        this.description = description;
+    }
+
     public Team(String teamName, String description, List<User> members)
     {
         this.teamName = teamName;
@@ -26,8 +37,15 @@ public class Team
 
         stringMembers = new ArrayList<>();
 
-        for(User u : members)
+        for (User u : members)
             stringMembers.add(u.getFirstName());
+    }
+
+    public Team(String teamName, List<String> stringMembers, String description)
+    {
+        this.teamName = teamName;
+        this.description = description;
+        this.stringMembers = stringMembers;
     }
 
     public List<String> getStringMembers()
@@ -40,12 +58,6 @@ public class Team
         this.stringMembers = stringMembers;
     }
 
-    public Team(String teamName, List<String> stringMembers, String description)
-    {
-        this.teamName = teamName;
-        this.description = description;
-        this.stringMembers = stringMembers;
-    }
 
     public String getTeamName()
     {

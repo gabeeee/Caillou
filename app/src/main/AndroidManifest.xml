@@ -26,6 +26,7 @@
             android:name=".DashboardHomev2"
             android:label="ApiCal"
             android:theme="@style/AppTheme" />
+        <activity android:name=".TeamCreation"></activity>
     </application>
 
 </manifest>
