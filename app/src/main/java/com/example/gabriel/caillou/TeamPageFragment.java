@@ -1,8 +1,12 @@
 package com.example.gabriel.caillou;
 
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ExpandableListView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,9 +23,10 @@ import java.util.List;
 
 public class TeamPageFragment extends Fragment
 {
-    private ExpandableListView listView;
-    private ExpandableListAdapter listAdapter;
-    private List<String> listDataHeader;
+    private ListView listView;
+    private ArrayAdapter<?> listAdapter;
+    //private List<String> listDataHeader;
+    private User user;
     private HashMap<String, List<String>> listHash;
 
     @Nullable
@@ -31,68 +37,55 @@ public class TeamPageFragment extends Fragment
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState)
-    {
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        listView = view.findViewById(R.id.teamExpandableList);
+        // Test settings
+        final String[] teamNames = new String[]{"Red Team", "Blue Team", "Green Team", "Purple Team", "Orange Team", "Blue Team", "Green Team", "Purple Team", "Orange Team", "Blue Team", "Green Team", "Purple Team", "Orange Team", "Blue Team", "Green Team", "Purple Team", "Orange Team", "Blue Team", "Green Team", "Purple Team", "Orange Team", "Blue Team", "Green Team", "Purple Team", "Orange Team", "Blue Team", "Green Team", "Purple Team", "Orange Team", "Blue Team", "Green Team", "Purple Team", "Orange Team", "Blue Team", "Green Team", "Purple Team", "Orange Team", "Blue Team", "Green Team", "Purple Team", "Orange Team", "Blue Team", "Green Team", "Purple Team", "Orange Team", "Blue Team", "Green Team", "Purple Team", "Orange Team", "Blue Team", "Green Team", "Purple Team", "Orange Team", "Blue Team", "Green Team", "Purple Team", "Orange Team", "Blue Team", "Green Team", "Purple Team", "Orange Team", "Blue Team", "Green Team", "Purple Team", "Orange Team", "Blue Team", "Green Team", "Purple Team", "Orange Team", "Blue Team", "Green Team", "Purple Team", "Orange Team", "Blue Team", "Green Team", "Purple Team", "Orange Team", "Blue Team", "Green Team", "Purple Team", "Orange Team", "Blue Team", "Green Team", "Purple Team", "Orange Team", "Blue Team", "Green Team", "Purple Team", "Orange Team", "Blue Team", "Green Team", "Purple Team", "Orange Team", "Blue Team", "Green Team", "Purple Team", "Orange Team", "Blue Team", "Green Team", "Purple Team", "Orange Team", "Blue Team", "Green Team", "Purple Team", "Orange Team", "Blue Team", "Green Team", "Purple Team", "Orange Team", "Blue Team", "Green Team", "Purple Team", "Orange Team", "Blue Team", "Green Team", "Purple Team", "Orange Team", "Blue Team", "Green Team", "Purple Team", "Orange Team", "Blue Team", "Green Team", "Purple Team", "Orange Team", "Blue Team", "Green Team", "Purple Team", "Orange Team", "Blue Team", "Green Team", "Purple Team", "Orange Team"};
+        //final String[] teamNames = new String[0];
+        // end test setttings
 
-        initData();
+        listView = view.findViewById(R.id.teamList);
 
-        listAdapter = new ExpandableListAdapter(getActivity(), listDataHeader, listHash);
+        /*
+        if (user == null) // size of list as well
+        {
+            listView.setVisibility(View.GONE);
+        } */
+
+        final TextView text = view.findViewById(R.id.lblListHeader);
+
+        ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(getContext(), R.layout.list_group, R.id.lblListHeader, teamNames);
+
         listView.setAdapter(listAdapter);
 
-        //System.out.println("List size: " + listAdapter.getGroupCount());
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                switch(position)
+                {
+                    case 0:
+                        System.out.println(teamNames[0]);
+                        Intent intent = new Intent(getActivity(), SignUpActivity.class);
+                        startActivity(intent);
+                        //Color.RED
 
-    }
-
-    public void initData()
-    {
-        Team testTeam;
-        List<String>names = new ArrayList<>();
-        names.add("Gabriel");
-        names.add("Cole");
-        names.add("Justin");
-        names.add("Taharka");
-        names.add("Jamison");
-        names.add("Jason");
-
-        testTeam = new Team("Cool team", names, "This team is rad!!!");
-
-        listDataHeader = new ArrayList<>();
-        listHash = new HashMap<>();
-
-        listDataHeader.add("Team1");
-        listDataHeader.add("Team2");
-        listDataHeader.add("Team3");
-        listDataHeader.add("Team4");
-        listDataHeader.add("Team5");
-        listDataHeader.add(testTeam.getTeamName());
-
-        List<String> team1 = new ArrayList<>();
-        team1.add("This is a expandable listview");
-
-        List<String> team2 = new ArrayList<>();
-        team2.add("shit");
-
-        List<String> team3 = new ArrayList<>();
-        team3.add("to");
-
-        List<String> team4 = new ArrayList<>();
-        team4.add("do");
-
-        List<String> team5 = new ArrayList<>();
-        team5.add("Teamy cinco");
-
-
-        listHash.put(listDataHeader.get(0), team1);
-        listHash.put(listDataHeader.get(1), team2);
-        listHash.put(listDataHeader.get(2), team3);
-        listHash.put(listDataHeader.get(3), team4);
-        listHash.put(listDataHeader.get(4), team5);
-        listHash.put(listDataHeader.get(5), testTeam.getStringMembers());
-
-
+                        break;
+                    case 1:
+                        System.out.println(teamNames[1]);
+                        break;
+                    case 2:
+                        System.out.println(teamNames[2]);
+                        break;
+                    case 3:
+                        System.out.println(teamNames[3]);
+                        break;
+                    default:
+                        System.err.println("OUT");
+                        break;
+                }
+            }
+        });
 
     }
 }

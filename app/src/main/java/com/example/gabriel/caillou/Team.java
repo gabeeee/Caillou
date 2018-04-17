@@ -14,6 +14,9 @@ public class Team
     private String description;
     private List<String> stringMembers;
 
+    //TODO: calendar
+    //private Calendar;
+
 
     public Team(String teamName, String description, List<User> members)
     {
