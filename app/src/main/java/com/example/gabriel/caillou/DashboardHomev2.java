@@ -34,6 +34,7 @@ public class DashboardHomev2 extends AppCompatActivity
 {
 
     TextView userNameNavBar;
+    User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -46,7 +47,7 @@ public class DashboardHomev2 extends AppCompatActivity
 
         // Checking intent grab
         Intent intent = getIntent();
-        User user = intent.getParcelableExtra("Example User");
+        user = intent.getParcelableExtra("Example User");
 
 
         if (userNameNavBar == null)
@@ -60,6 +61,8 @@ public class DashboardHomev2 extends AppCompatActivity
         System.out.println("Dashboardv2 first and last: " + user.getFirstName() + "   " + user.getLastName());
 
         // Bottom Navigation
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("USER", user);
         BottomNavigationView bottomNavigation = findViewById(R.id.navigation);
         bottomNavigation.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener()
@@ -160,6 +163,8 @@ public class DashboardHomev2 extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item)
     {
         Fragment fragment;
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("USER", user);
 
         // Handle navigation view item clicks here.
         int id = item.getItemId();
@@ -172,6 +177,7 @@ public class DashboardHomev2 extends AppCompatActivity
         {
             // Start TeamFragment
             fragment = new TeamPageFragment();
+            fragment.setArguments(bundle);
             loadFragment(fragment);
 
             getSupportActionBar().setTitle("ApiCal: Teams");

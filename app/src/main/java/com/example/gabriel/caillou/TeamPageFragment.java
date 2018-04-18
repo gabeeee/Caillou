@@ -28,11 +28,13 @@ import java.util.List;
 public class TeamPageFragment extends Fragment
 {
     private ListView listView;
-    private ArrayAdapter<?> listAdapter;
+    //private ArrayAdapter<?> listAdapter;
     //private List<String> listDataHeader;
     private User user;
-    private HashMap<String, List<String>> listHash;
     private FloatingActionButton fab;
+    private Team teamCreated;
+    private List<String> teamNames;
+    private ArrayAdapter<String> listAdapter;
 
     @Nullable
     @Override
@@ -42,43 +44,92 @@ public class TeamPageFragment extends Fragment
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState)
+    {
         super.onViewCreated(view, savedInstanceState);
+        user = getArguments().getParcelable("USER");
 
-        final List<String> teamNames = new ArrayList<>();
+        teamNames = new ArrayList<>();
+
+        List<Team> t = user.getTeamList();
+
+        for (Team z : t)
+            teamNames.add(z.getTeamName());
 
         listView = view.findViewById(R.id.teamList);
 
         final TextView text = view.findViewById(R.id.lblListHeader);
 
-        final ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(getContext(), R.layout.list_group, R.id.lblListHeader, teamNames);
+        listAdapter = new ArrayAdapter<String>(getContext(), R.layout.list_group, R.id.lblListHeader, teamNames);
 
         listView.setAdapter(listAdapter);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (position > 0 && teamNames.size() >= teamNames.size())
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+            {
+                if (position >= 0 && teamNames.size() >= teamNames.size())
                 {
-                    System.out.println("teamNames: " + teamNames.get(position));
+                    // System.out.println("teamNames: " + teamNames.get(position));
+                    Intent intent = new Intent(getContext(), teamPageView.class);
+                    intent.putExtra("USER", user);
+                    intent.putExtra("POSITION", position);
+                    startActivity(intent);
+
+
+
+                    /*intent.("STRINGTEAMS", teamNames);
+                    intent.putExtra("LISTADAPTER", listAdapter);
+                    Team t = user.getTeam(position);
+                    System.out.println("Team name: " + t.getTeamName());
+                    teamNames.remove(t.getTeamName());
+                    user.removeTeam(t);
+                    listAdapter.notifyDataSetChanged();*/
                 }
             }
         });
 
         fab = view.findViewById(R.id.teamFloatingActionButton);
 
-        // Create Team Page
+        // Call (TeamCreation.class)
         fab.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View view)
             {
-
+                int resultCode = 0;
                 Intent intent = new Intent(getContext(), TeamCreation.class);
-                startActivity(intent);
-                Toast.makeText(getContext( ), "Team Created", Toast.LENGTH_SHORT).show();
-
+                startActivityForResult(intent, resultCode);
             }
         });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        //TODO: Delete when finished debugging...
+        System.out.println("onActivityResult has been called.");
+
+        if (resultCode == 2)
+        {
+            // Grab Team object from intent(TeamCreation.class) changes.
+            teamCreated = data.getExtras().getParcelable("TEAM");
+
+            //TODO: Delete when finished debugging...
+            System.out.println("DATA FROM PARCEL: " + teamCreated);
+            System.out.println("DATA: " + teamCreated.getTeamName());
+
+            // Add teamCreated name to teamNames arraylist.
+            // Follow by adding createdTeam to users list of teams.
+            teamNames.add(teamCreated.getTeamName());
+            user.addTeam(teamCreated);
+
+            // Update adapter for changes in list<String> teamNames which reflects
+            // upon ListView ui.
+            listAdapter.notifyDataSetChanged();
+        }
     }
 }

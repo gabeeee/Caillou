@@ -28,7 +28,7 @@
         android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
         android:text="Team Page"
-        android:textSize="48sp"
+        android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/teamList"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="71dp" />
@@ -41,6 +41,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:clickable="true"
+        android:tooltipText="Create a Team"
         android:src="@drawable/ic_playlist_add_white_24px"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />

@@ -2,50 +2,86 @@ package com.example.gabriel.caillou;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
-public class User implements Parcelable
-{
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+public class User implements Parcelable {
     private String firstName;
     private String lastName;
     private String userName;
     private String email;
-    private Team team;
+    private List<Team> teams;
 
-    public User()
-    {
-
+    public User() {
+        teams = new ArrayList<>();
+        teams.add(new Team("this", "pizza"));
     }
 
-    public User(String firstName, String lastName, String userName, String email, Team team)
+    public User(String firstName, String lastName)
     {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
+    public User(String userName, String email, List<Team> teams) {
+        this.userName = userName;
+        this.email = email;
+        this.teams = teams;
+    }
+
+    public User(String firstName, String lastName, String userName, String email, List<Team> teams) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.userName = userName;
         this.email = email;
-        this.team = team;
+        this.teams = teams;
     }
 
-    protected User(Parcel in) {
+    protected User(Parcel in)
+    {
         firstName = in.readString();
         lastName = in.readString();
         userName = in.readString();
         email = in.readString();
+        teams = in.createTypedArrayList(Team.CREATOR);
     }
 
-    public static final Creator<User> CREATOR = new Creator<User>() {
+    @Override
+    public void writeToParcel(Parcel dest, int flags)
+    {
+        dest.writeString(firstName);
+        dest.writeString(lastName);
+        dest.writeString(userName);
+        dest.writeString(email);
+        dest.writeTypedList(teams);
+    }
+
+    @Override
+    public int describeContents()
+    {
+        return 0;
+    }
+
+    public static final Creator<User> CREATOR = new Creator<User>()
+    {
         @Override
-        public User createFromParcel(Parcel in) {
+        public User createFromParcel(Parcel in)
+        {
             return new User(in);
         }
 
         @Override
-        public User[] newArray(int size) {
+        public User[] newArray(int size)
+        {
             return new User[size];
         }
     };
 
-    public String getFirstName()
-    {
+    public String getFirstName() {
         return firstName;
     }
 
@@ -53,8 +89,7 @@ public class User implements Parcelable
         this.firstName = firstName;
     }
 
-    public String getLastName()
-    {
+    public String getLastName() {
         return lastName;
     }
 
@@ -62,8 +97,7 @@ public class User implements Parcelable
         this.lastName = lastName;
     }
 
-    public String getUserName()
-    {
+    public String getUserName() {
         return userName;
     }
 
@@ -71,8 +105,7 @@ public class User implements Parcelable
         this.userName = userName;
     }
 
-    public String getEmail()
-    {
+    public String getEmail() {
         return email;
     }
 
@@ -80,16 +113,31 @@ public class User implements Parcelable
         this.email = email;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
+    public void addTeam(Team... team) {
+
+        Collections.addAll(teams, team);
     }
 
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(firstName);
-        parcel.writeString(lastName);
-        parcel.writeString(userName);
-        parcel.writeString(email);
+    public int teamSize() {
+        return teams.size();
+    }
+
+    public List<Team> getTeamList() {
+        return teams;
+    }
+
+    public void setTeamList(List<Team> teams) {
+        this.teams = teams;
+    }
+
+    public Team getTeam(int index)
+    {
+        return teams.get(index);
+    }
+
+    public void removeTeam(Team t)
+    {
+        teams.remove(t);
+        System.out.println(t.getTeamName() + " was removed.");
     }
 }

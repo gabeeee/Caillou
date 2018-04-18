@@ -1,10 +1,14 @@
 package com.example.gabriel.caillou;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-public class Team
+public class Team implements Parcelable
 {
     // TODO: Might want to implement a Parcable inteface?
     // (Do we need to serialize this object?)
@@ -16,7 +20,6 @@ public class Team
 
     //TODO: calendar
     //private Calendar;
-
 
     public Team(String teamName)
     {
@@ -48,6 +51,25 @@ public class Team
         this.stringMembers = stringMembers;
     }
 
+    protected Team(Parcel in) {
+        teamName = in.readString();
+        members = in.createTypedArrayList(User.CREATOR);
+        description = in.readString();
+        stringMembers = in.createStringArrayList();
+    }
+
+    public static final Creator<Team> CREATOR = new Creator<Team>() {
+        @Override
+        public Team createFromParcel(Parcel in) {
+            return new Team(in);
+        }
+
+        @Override
+        public Team[] newArray(int size) {
+            return new Team[size];
+        }
+    };
+
     public List<String> getStringMembers()
     {
         return stringMembers;
@@ -69,14 +91,24 @@ public class Team
         this.teamName = teamName;
     }
 
-    public List<User> getMembers()
+    public List<User> getListMembers()
     {
         return members;
     }
 
-    public void setMembers(List<User> members)
+    public void setListMembers(List<User> members)
     {
         this.members = members;
+    }
+
+    public void addMember(User... users)
+    {
+        Collections.addAll(members, users);
+    }
+
+    public User getMember(int position)
+    {
+        return members.get(position);
     }
 
     public String getDescription()
@@ -87,5 +119,18 @@ public class Team
     public void setDescription(String description)
     {
         this.description = description;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(teamName);
+        dest.writeTypedList(members);
+        dest.writeString(description);
+        dest.writeStringList(stringMembers);
     }
 }
