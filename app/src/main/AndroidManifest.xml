@@ -27,7 +27,7 @@
             android:label="ApiCal"
             android:theme="@style/AppTheme" />
         <activity android:name=".TeamCreation" />
-        <activity android:name=".teamPageView"></activity>
+        <activity android:name=".teamPageView" />
     </application>
 
 </manifest>

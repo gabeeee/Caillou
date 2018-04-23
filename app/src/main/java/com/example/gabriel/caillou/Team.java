@@ -2,6 +2,7 @@ package com.example.gabriel.caillou;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.widget.ArrayAdapter;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -21,6 +22,11 @@ public class Team implements Parcelable
     //TODO: calendar
     //private Calendar;
 
+    public Team()
+    {
+        members = new ArrayList<>();
+        stringMembers = new ArrayList<>();
+    }
     public Team(String teamName)
     {
         this.teamName = teamName;
@@ -30,6 +36,7 @@ public class Team implements Parcelable
     {
         this.teamName = teamName;
         this.description = description;
+        stringMembers = new ArrayList<>();
     }
 
     public Team(String teamName, String description, List<User> members)
@@ -104,6 +111,13 @@ public class Team implements Parcelable
     public void addMember(User... users)
     {
         Collections.addAll(members, users);
+    }
+
+    public void addStringMember(String... userString)
+    {
+        for (String s : userString)
+            stringMembers.add(s);
+        // Might have to check if theirs a users that exists maybe?
     }
 
     public User getMember(int position)

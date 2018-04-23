@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".TeamCreation"
     tools:layout_editor_absoluteY="25dp">
 
@@ -78,7 +79,7 @@
         android:id="@+id/teamSubmitButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="72dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
@@ -88,9 +89,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/membersLabel"
-        app:layout_constraintVertical_bias="1.0" />
-    
+        app:layout_constraintTop_toBottomOf="@+id/memberListVIew" />
+
     <android.support.v7.widget.Toolbar
         android:id="@+id/createTeamToolbar"
         android:layout_width="match_parent"
@@ -99,4 +99,44 @@
         android:elevation="4dp"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"></android.support.v7.widget.Toolbar>
+
+    <EditText
+        android:id="@+id/addMemberTextBox"
+        android:layout_width="203dp"
+        android:layout_height="47dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="36dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="36dp"
+        android:ems="10"
+        android:hint="Add a member"
+        android:inputType="textPersonName"
+        app:layout_constraintBaseline_toBaselineOf="@+id/addMemberButton"
+        app:layout_constraintEnd_toStartOf="@+id/addMemberButton"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/addMemberButton"
+        android:layout_width="71dp"
+        android:layout_height="43dp"
+        android:layout_marginEnd="48dp"
+        android:layout_marginRight="48dp"
+        android:layout_marginTop="40dp"
+        android:onClick="addMembers"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/descriptionTextBox" />
+
+    <ListView
+        android:id="@+id/memberListVIew"
+        android:layout_width="279dp"
+        android:layout_height="129dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.384"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addMemberButton" />
 </android.support.constraint.ConstraintLayout>
