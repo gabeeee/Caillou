@@ -1,31 +1,36 @@
 package com.example.gabriel.caillou;
 
+
+import android.annotation.TargetApi;
 import android.app.DatePickerDialog;
-import android.content.ContentProvider;
+import android.app.TimePickerDialog;
 import android.content.ContentResolver;
-import android.content.ContentUris;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.icu.util.Calendar;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Handler;
 import android.provider.CalendarContract;
-import android.provider.CalendarContract.Events;
-import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.TextView;
+import android.widget.TimePicker;
+
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 public class TeamCalendarFragment extends Fragment
 {
+    DatePicker datePickerResult;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState)
@@ -40,88 +45,54 @@ public class TeamCalendarFragment extends Fragment
 
         User user = getArguments().getParcelable("USER");
 
+        datePickerResult = view.findViewById(R.id.DatePickerTag);
+
         final TextView tab2 = view.findViewById(R.id.teamNamePlaceHolder);
         tab2.setText(user.getLastName());
 
         tab2.setOnClickListener(new View.OnClickListener()
         {
-            @RequiresApi(api = Build.VERSION_CODES.N)
-            @Override
+            @TargetApi(Build.VERSION_CODES.N)
             public void onClick(View v)
             {
+                Calendar cal = Calendar.getInstance();
+                /*int day = cal.get(Calendar.DAY_OF_MONTH), month = cal.get(Calendar.MONTH), year = cal.get(Calendar.YEAR);
 
-                // INTERVAL TEST FOR DATE AND TIME PICKER
-                /*Calendar cal = Calendar.getInstance();
-
-                System.out.println("Year: " + cal.get(Calendar.YEAR));
-                System.out.println("Month: " + cal.get(Calendar.MONTH));
-                System.out.println("Date: " + cal.get(Calendar.DATE));
-
-                int year = cal.get(Calendar.YEAR), month = cal.get(Calendar.MONTH), day = cal.get(Calendar.DATE);
-
-                final DatePickerDialog dpd = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener()
+                DatePickerDialog dpd = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener()
                 {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth)
                     {
-                        System.out.println("DIALOG: " + year + " " + month + " " + dayOfMonth);
+                        tab2.setText(Integer.toString(dayOfMonth));
                     }
                 }, year, month, day);
                 dpd.show();
-                System.out.println("OUTPUT: " + year + month + day);
+*/
 
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable()
+                final int hour = cal.get(Calendar.HOUR_OF_DAY), minute = cal.get(Calendar.MINUTE);
+                TimePickerDialog tpd = new TimePickerDialog(getContext(), new TimePickerDialog.OnTimeSetListener()
                 {
                     @Override
-                    public void run()
+                    public void onTimeSet(TimePicker view, int hourOfDay, int minute)
                     {
-                        tab2.setText("Tester");
-                        dpd.show();
+                        tab2.setText(Integer.toString(hourOfDay));
                     }
-                },  5000);*/
+                }, hour, minute, false);
+                tpd.setTitle("Pick a time");
+                tpd.show();
 
-
-                /*DatePickerDialog dpd2 = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener()
-                {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth)
-                    {
-                        System.out.println("DIALOG: " + year + " " + month + " " + dayOfMonth);
-                    }
-                }, year, month, day);
-                dpd2.show();
-
-                System.out.println("OUTPUT: " + year + month + day);*/
-
-
-
-                /*Intent intent = new Intent(Intent.ACTION_INSERT);
-                intent.setData(CalendarContract.Events.CONTENT_URI);
-                Uri test = intent.getData();
-                startActivity(intent);
-
-                System.out.println("Calendar: " + test.getQuery() + " or " + intent.getDataString());*/
-
-
-                /*long startMillis = 0;
-                Uri.Builder builder = CalendarContract.CONTENT_URI.buildUpon();
-                builder.appendPath("time");
-                ContentUris.appendId(builder, startMillis);
-                Intent intent2 = new Intent(Intent.ACTION_VIEW).setData(builder.build());
-                startActivity(intent2);*/
-
-                /*long startMillis = System.currentTimeMillis();
-                Uri.Builder builder = CalendarContract.CONTENT_URI.buildUpon();
-                builder.appendPath("time");
-                ContentUris.appendId(builder, startMillis);
-                Intent intent = new Intent(Intent.ACTION_VIEW).setData(builder.build());
-                startActivity(intent);
-
-                System.out.println("Login: " + intent.getData());*/
-
-
+                /*Intent intent = new Intent(Intent.ACTION_INSERT)
+                        .setData(CalendarContract.Events.CONTENT_URI)
+                        .putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, beginTime.getTimeInMillis())
+                        .putExtra(CalendarContract.EXTRA_EVENT_END_TIME, endTime.getTimeInMillis())
+                        .putExtra(CalendarContract.Events.TITLE, "Yoga")
+                        .putExtra(CalendarContract.Events.DESCRIPTION, "Group class")
+                        .putExtra(CalendarContract.Events.EVENT_LOCATION, "The gym")
+                        .putExtra(CalendarContract.Events.AVAILABILITY, CalendarContract.Events.AVAILABILITY_BUSY)
+                        .putExtra(Intent.EXTRA_EMAIL, "rowan@example.com,trevor@example.com");
+                startActivity(intent);*/
             }
         });
     }
 }
+
