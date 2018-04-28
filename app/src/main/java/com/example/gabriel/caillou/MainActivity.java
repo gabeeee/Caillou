@@ -3,6 +3,7 @@ package com.example.gabriel.caillou;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -13,6 +14,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
@@ -25,6 +27,8 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -34,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     User user;
 
     RequestQueue rq;
-    String url = "http://192.168.0.17/login.php";
+    String url = "http://34.201.255.155/scripts/login.php";
     String firstName, lastName, error;
 
     @Override
@@ -73,21 +77,59 @@ public class MainActivity extends AppCompatActivity {
         payload.put("username", username);
         payload.put("password", password);
 
-        // Comment out payload
-        // sendJsonRequest function should have covered any exceptions. Might want to return a
-        // boolean data type.
-
-        /*
-        if (payload != null) // This function should check the validity of the object and check if
-                             // payload was sent and secured.
-        {
-            // Set up a dummy toast message
-            Toast.makeText(getApplicationContext(), "Hello " + username, Toast.LENGTH_SHORT).show();
-        } */
 
         rq = Volley.newRequestQueue(this);
 
-        sendJsonRequest();
+        //sendJsonRequest();
+
+            StringRequest postRequest = new StringRequest(Request.Method.POST, url,
+                    new Response.Listener<String>()
+                    {
+                        @Override
+                        public void onResponse(String response) {
+                            // response
+                            Log.d("Response", response);
+                        }
+                    },
+                    new Response.ErrorListener()
+                    {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            // error
+                            Log.d("Error.Response", error.toString());
+                        }
+                    }
+            ) {
+                @Override
+                protected Map<String, String> getParams()
+                {
+                    Map<String, String>  params = new HashMap<String, String>();
+                    params.put("email", "pizza@gmail.com");
+                    params.put("psw", "pizza");
+
+                    return params;
+                }
+            }; rq.add(postRequest);
+
+        /*JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONObject>()
+                {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        // display response
+                        Log.d("Response", response.toString());
+                    }
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("Error.Response", error.toString());
+                    }
+                }
+        );
+
+        rq.add(getRequest);*/
 
         user = new User();
 
@@ -103,16 +145,14 @@ public class MainActivity extends AppCompatActivity {
 
     public void sendJsonRequest()
     {
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
 
                 try {
-                    firstName = response.getString("firstName");
-                    lastName = response.getString("lastName");
+                    firstName = response.getString("email");
+                    lastName = response.getString("psw");
 
-                    //user.setFirstName(firstName);
-                    //user.setLastName(lastName);
 
                     // Toast test
                     Toast.makeText(getApplicationContext(), "Hello " + firstName + lastName, Toast.LENGTH_SHORT).show();

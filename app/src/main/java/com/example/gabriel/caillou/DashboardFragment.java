@@ -1,6 +1,7 @@
 package com.example.gabriel.caillou;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
@@ -27,6 +28,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.gson.Gson;
 
 import java.text.SimpleDateFormat;
@@ -44,7 +49,7 @@ public class DashboardFragment extends Fragment
 {
     Date sDT = new Date();
     Calendar cal = Calendar.getInstance() ,Ecal = Calendar.getInstance();
-    String start, end;
+    String start, end, eventTitleString , eventDescriptionString, locationString;
 
 
 
@@ -73,8 +78,9 @@ public class DashboardFragment extends Fragment
         final TextView startTime = view.findViewById(R.id.startTime);
         final TextView endDate = view.findViewById(R.id.endDate);
         final TextView endTime = view.findViewById(R.id.endTime);
-        EditText eventTitle = view.findViewById(R.id.eventTitleTextBox);
-        EditText eventDescription = view.findViewById(R.id.eventDescriptionTextBox);
+        final EditText eventTitle = view.findViewById(R.id.eventTitleTextBox);
+        final EditText eventDescription = view.findViewById(R.id.eventDescriptionTextBox);
+        final EditText locationTextBox = view.findViewById(R.id.locationTextBox);
 
         eventTitle.setText("");
         eventDescription.setText("");
@@ -136,10 +142,33 @@ public class DashboardFragment extends Fragment
             @Override
             public void onClick(View v)
             {
+                eventTitleString = eventTitle.getText().toString();
+                eventDescriptionString = eventDescription.getText().toString();
+                locationString = locationTextBox.getText().toString();
+                System.out.println("Event: " + eventTitleString);
+                System.out.println("EventDescription: " + eventDescriptionString);
+                System.out.println("Location: " + locationString);
                 System.out.println("Start: " + start);
                 System.out.println("End: " + end);
             }
         });
+
+        /*// Places testing if it works
+        int PLACE_PICKER_REQUEST = 1;
+        PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+
+        try
+        {
+            Intent intent = builder.build(getActivity());
+            startActivityForResult(intent, PLACE_PICKER_REQUEST);
+        } catch (GooglePlayServicesRepairableException e)
+        {
+            e.printStackTrace();
+        } catch (GooglePlayServicesNotAvailableException e)
+        {
+            e.printStackTrace();
+        }*/
+
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -236,4 +265,20 @@ public class DashboardFragment extends Fragment
         },hour, minute, false);
         tpd.show();
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == getActivity().RESULT_OK)
+        {
+            Place place = PlacePicker.getPlace(data, getContext());
+            Log.d("ADDRESS", String.format("Place %s", place.getAddress()));
+        }
+    }
 }
+
+
+
+/// '1','Best Friends Meeting','2018-7-4','2018-7-4','12:00:0','13:30:0','Cleveland, OH','Guys, let\'s all try to join the same team.','Unspecified')
