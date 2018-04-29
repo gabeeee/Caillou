@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">ApiCal</string>
 
+    <string name="eventList">Events</string>
+    <string name="createevents">Create</string>
     <!-- Main Page -->
     <string name="login_name">Login</string>
     <string name="imageViewPlaceholderLogo">Placeholder Logo</string>

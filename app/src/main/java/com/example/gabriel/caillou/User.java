@@ -14,11 +14,14 @@ public class User implements Parcelable {
     private String lastName;
     private String userName;
     private String email;
-    private List<Team> teams;
+    private List<Team> teams = new ArrayList<>();
+    private List<EventCal> userEvents = new ArrayList<>();
+
+
 
     public User() {
-        teams = new ArrayList<>();
-        teams.add(new Team("this", "pizza"));
+        //teams = new ArrayList<>();
+        //teams.add(new Team("this", "pizza"));
     }
 
     public User(String firstName, String lastName)
@@ -139,5 +142,18 @@ public class User implements Parcelable {
     {
         teams.remove(t);
         System.out.println(t.getTeamName() + " was removed.");
+    }
+
+    public void insertEvent(String eventTitle, String eventDescription, String start, String end, String location)
+    {
+        userEvents.add(new EventCal(eventTitle, eventDescription, start, end, location));
+    }
+
+    public void printEvents ()
+    {
+        for (EventCal e : userEvents)
+        {
+            System.out.println(e.getEventTitle() + "   " + e.getEventDescription() + "   " + e.getStart() + "   " + e.getEnd() + "   " + e.getEventLocation());
+        }
     }
 }

@@ -2,6 +2,7 @@ package com.example.gabriel.caillou;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.EventLog;
 import android.widget.ArrayAdapter;
 
 import java.lang.reflect.Array;
@@ -15,9 +16,10 @@ public class Team implements Parcelable
     // (Do we need to serialize this object?)
 
     private String teamName;
-    private List<User> members;
+    private List<User> members = new ArrayList<>();
     private String description;
-    private List<String> stringMembers;
+    private List<String> stringMembers = new ArrayList<>();
+    private List<EventCal> teamEvents = new ArrayList<>();
 
     //TODO: calendar
     //private Calendar;

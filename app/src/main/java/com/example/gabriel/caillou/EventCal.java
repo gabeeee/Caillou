@@ -10,6 +10,18 @@ public class EventCal
     private long dEnd;
     private long tStart;
     private long tEnd;
+    private String start;
+    private String end;
+
+    // This is with strings applied
+    public EventCal(String eventTitle, String eventDescription, String start, String end, String eventLocation)
+    {
+        this.eventTitle = eventTitle;
+        this.eventDescription = eventDescription;
+        this.start = start;
+        this.end = end;
+        this.eventLocation = eventLocation;
+    }
 
     public EventCal(long evId, String eventTitle, String eventDescription, String eventLocation, long dStart, long dEnd, long tStart, long tEnd)
     {
@@ -111,5 +123,30 @@ public class EventCal
     public void settEnd(long tEnd)
     {
         this.tEnd = tEnd;
+    }
+
+    public void setEvId(long evId)
+    {
+        this.evId = evId;
+    }
+
+    public String getStart()
+    {
+        return start;
+    }
+
+    public void setStart(String start)
+    {
+        this.start = start;
+    }
+
+    public String getEnd()
+    {
+        return end;
+    }
+
+    public void setEnd(String end)
+    {
+        this.end = end;
     }
 }

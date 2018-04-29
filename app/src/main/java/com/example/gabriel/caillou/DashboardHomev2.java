@@ -70,6 +70,8 @@ public class DashboardHomev2 extends AppCompatActivity
                     public boolean onNavigationItemSelected(MenuItem item)
                     {
                         Fragment fragment = null;
+                        Bundle bundle = new Bundle();
+                        bundle.putParcelable("USER", user);
 
                         switch (item.getItemId())
                         {
@@ -80,7 +82,8 @@ public class DashboardHomev2 extends AppCompatActivity
 
                             case R.id.navigation_dashboard:
                                 fragment = new DashboardFragment();
-                                getSupportActionBar().setTitle("ApiCal: Calendar");
+                                fragment.setArguments(bundle);
+                                getSupportActionBar().setTitle("ApiCal: Create Events");
                                 break;
 
                             case R.id.navigation_notifications:

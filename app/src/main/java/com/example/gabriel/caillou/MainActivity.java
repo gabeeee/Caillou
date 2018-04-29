@@ -48,6 +48,8 @@ public class MainActivity extends AppCompatActivity {
 
         signUp = (TextView) findViewById(R.id.signUpLabel);
 
+        populate();
+
         signUp.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view)
             {
@@ -131,11 +133,6 @@ public class MainActivity extends AppCompatActivity {
 
         rq.add(getRequest);*/
 
-        user = new User();
-
-        user.setFirstName("Judy");
-        user.setLastName("Lara");
-
         // TODO: Open dashboard activity send JSONRequest should probably return a boolean value.
         // To make sure that user doesn't reach next activity if the login page doesn't let them.
         Intent intent = new Intent(MainActivity.this, DashboardHomev2.class);
@@ -177,5 +174,14 @@ public class MainActivity extends AppCompatActivity {
         });
 
         rq.add(jsonObjectRequest);
+    }
+
+    public void populate()
+    {
+        user = new User("Pablo", "Pizzazo");
+        user.setEmail("Pablito@yago.com");
+        user.addTeam(new Team("Group 1", "Group 1 description"),
+                     new Team("Group 2", "Group 2 description"),
+                     new Team("Group 3", "Group 3 description"));
     }
 }

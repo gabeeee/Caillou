@@ -10,6 +10,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,7 +55,10 @@ public class TeamPageFragment extends Fragment
         List<Team> t = user.getTeamList();
 
         for (Team z : t)
+        {
+            Log.d("TEAMS", z.getTeamName());
             teamNames.add(z.getTeamName());
+        }
 
         listView = view.findViewById(R.id.teamList);
 

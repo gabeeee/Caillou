@@ -50,14 +50,14 @@ public class DashboardFragment extends Fragment
     Date sDT = new Date();
     Calendar cal = Calendar.getInstance() ,Ecal = Calendar.getInstance();
     String start, end, eventTitleString , eventDescriptionString, locationString;
-
+    User user;
 
 
     SimpleDateFormat format = new SimpleDateFormat("EEE, MMM, d");
     SimpleDateFormat tFormat = new SimpleDateFormat("h:mm a");
 
     SimpleDateFormat jFormat = new SimpleDateFormat("EEE, MMM, d, h:mm a zzz");
-    SimpleDateFormat test = new SimpleDateFormat("yyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+    SimpleDateFormat test = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");
 
     @Nullable
     @Override
@@ -71,6 +71,8 @@ public class DashboardFragment extends Fragment
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState)
     {
         super.onViewCreated(view, savedInstanceState);
+        user = getArguments().getParcelable("USER");
+
 
         //Calendar cal = Calendar.getInstance();
         Button btn = view.findViewById(R.id.createEventButton);
@@ -150,6 +152,12 @@ public class DashboardFragment extends Fragment
                 System.out.println("Location: " + locationString);
                 System.out.println("Start: " + start);
                 System.out.println("End: " + end);
+                user.insertEvent(eventTitleString, eventDescriptionString, start, end, locationString);
+                user.printEvents();
+
+                eventTitle.setText("");
+                eventDescription.setText("");
+                locationTextBox.setText("");
             }
         });
 
@@ -211,8 +219,8 @@ public class DashboardFragment extends Fragment
 
                 startTime.setText(tFormat.format(cal.getTime()));
                 Log.d("Debug", jFormat.format(cal.getTime()));
-                System.out.println("Start: " + test.format(cal.getTime()));
-                start = jFormat.format(cal.getTime());
+                System.out.println("StartTTT: " + test.format(cal.getTime()));
+                start = test.format(cal.getTime());
             }
         },hour, minute, false);
         tpd.show();
@@ -259,8 +267,8 @@ public class DashboardFragment extends Fragment
 
                 startTime.setText(tFormat.format(Ecal.getTime()));
                 Log.d("Debug", jFormat.format(Ecal.getTime()));
-                System.out.println("End: " + test.format(Ecal.getTime()));
-                end = jFormat.format(Ecal.getTime());
+                System.out.println("EndTTT: " + test.format(Ecal.getTime()));
+                end = test.format(Ecal.getTime());
             }
         },hour, minute, false);
         tpd.show();
